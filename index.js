@@ -43,6 +43,10 @@ module.exports = function (options) {
 			rooleC.compile(str, options, function (err, css) {
 				
 				if (err) {
+					if (options.logAndContinueOnError) {
+						gutil.log('gulp-roole ' + err);
+						return next();
+					}
 					self.emit('error', new gutil.PluginError('gulp-roole', err));
 				} else {
 					file.contents = new Buffer(css);
